@@ -178,14 +178,16 @@ The goal of the agents is as fast as possible to let as many of the agents use s
 while using no extra information regarding the graph and the vertices that were already visited.
 An agent has only a list of neighbors who communicated with him thus far.
 Each time the agent receives the resource, it can move it only to one neighbor.
-We will see that  the GRW protocol can preform better than simple random walk (SRW) on some graphs.
+We will see that  the GRW protocol can perform better than simple random walk (SRW) on some graphs.
 
 The repelling nature of GRW suggests that the range of the walk will
 grow at least as fast as that of SRW and that it will mix at least as fast as SRW.
 We will study the cover time of finite graphs by the GRW, and
 establish faster GRW cover time for a few natural families of graph.
 E.g.\ the expected time it takes the GRW to go via all edges
-of the complete graph of size $n$ is $\Theta(n^2)$.
+of the complete graph on $n$ vertices is $O(n^2)$,
+which is asymptotically faster than $\Omega (n^2 \log(n))$, the edge cover time of SRW.
+
 Recall that Feige \cite{Feige95lowerbound} showed that the expected cover time of a
 graph of size $n$ by a simple random walk is at least $n \log n$,
 and recently in \cite{BGM} it was shown that for bounded degree graphs linear cover time is
@@ -195,20 +197,30 @@ For many years probabilists are clueless regarding some
 basic conjectures about self interacting random walks. Occasionally
 some combinatorial observation, a coupling technique
 or other insights allow the analysis of such a process. We will see
-below that this is the case for the GRW, thus easily proving that
-GRW is transient on $Z^d, d >2$. The current simple proof totally
+below that this is the case for the GRW, thus proving that
+GRW is transient on $Z^d$ for $d >2$. The current simple proof totally
 depends on the degrees of the graph being even and we don't know
 how to handle odd degrees at all. This suggests several conjectures.
-\medskip
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Notation}\label{sec:notation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We use standard notation of $O$, $\Omega$ and $\Theta$.
+For two functions $f,g : \N \to \R_+$
+we say $f = O(g)$, if there is a positive constant $c_1$ such that $f(n) < c_1 g(n)$ for all sufficiently large values of $n$.
+We say $f = \Omega(g)$, if there is a positive constant $c_2$ such that $f(n) < c_2 g(n)$ for all sufficiently large values of $n$.
+We say $f = \Theta(g)$,  if both $f = O(g)$ and $f = \Omega(g)$.
 
-\medskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Organization of the Paper}\label{sec:organization}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The next section is regarding covertime of finite graphs. Then we move to GRW on $\Z^d$.
+In the next section we discuss edge cover time of finite graphs
+and show for some families of graphs the edge cover time of GRW
+is asymptotically smaller than that of SRW.
+In section \ref{sec:z^d} we study the behavior of GRW on $\Z^d$.
+In particular we show that the walk is transient on $\Z^d$ for $d \geq 2$
 We end with a list of open problems.
-
-
-
 
 
 
@@ -256,10 +268,15 @@ We end with a list of open problems.
     We say the walk \emph{got stuck} at time $t$ if $t = s_i$ for some $i = 1, \dots, k$.
     It should be clear from the description, that the vertices $X_{s_i}$ must all be distinct,
     as $X_{s_i}$ is exactly the $i$-th time that the walk got stuck and it is impossible to get stuck in the same vertex twice.
-    In particular $k \leq n$.
+    In particular $k$ is a random variable that takes values in $\set{1, \dots, n}$.
+    The distribution of $k$ that depends only on the graph $G$ and the starting vertex $X_0$.
 
-    Note that in any walk the total size of the greedy parts equals exactly to the number of edges $|E|$.
-    Thus in order to bound $\E[T^E_G]$, we need to bound the expected size of each simple part $\E[t_i - s_i]$,$i = 1, \dots, k$.
+    Note that in any walk the total size of the greedy parts equals exactly to the number of edges $|E|$,
+    implying the following simple formula:
+    \begin{equation}
+        T^E_G = |E| + \sum_{i=1}^{k-1} (t_i - s_i)
+    \end{equation}
+    Thus, in order to bound $\E[T^E_G]$, we need to bound the expected size of each simple part $\E[t_i - s_i]$ for $i = 1, \dots, k-1$.
 
     We say a vertex $v$ at time $t$ is \emph{occupied} if $J_t(v) = \emptyset$,
     i.e.\ all edges adjacent to $v$ are covered by time $t$.
@@ -291,19 +308,28 @@ We end with a list of open problems.
 
     Consider $G = K_n$, the complete graph of $n$ vertices.
     A simple observation here is as following:
-    For any $i = 1 \dots k$, the expected escape time from $B_i$ is distributed geometrically
+    Fix $k \in \set{1,\dots,n}$ and let $B_1 \subset B_2 \subset ... \subset B_k = V$.
+    The expected escape time from $B_i$ (conditioned on $k$ and $B_j$'s) is distributed geometrically
+    \fbox{ \color{red}    \begin{tabular}{l}
+         PROVE why this is true!!! \\
+         Note that conditioning on $k$ and $B_j$'s might change the escape time. \\
+         Also might be that not every fixing is possible, i.e. has zero probability!!!
+    \end{tabular}    }
     \[
-        t_i - s_i \sim G(1 - \frac{|B_i|}{n})
+        t_i - s_i \sim G(1 - \frac{|B_i| - 1}{n - 1})
     \]
     Therefore
     \[
-        \E[t_i - s_i] = \frac{n}{n - |B_i|}
+        \E[t_i - s_i ] = \frac{n-1}{n - |B_i|}
     \]
-    Since $B_i$ form a strict chain, we have a bound of the sum of the expectations.
+    and hence
     \[
-        \sum_{i=1}^k \E[t_i - s_i]  = \sum_{i=1}^k \frac{n}{n - |B_i|} \leq \sum_{i=1}^n \frac{n}{n - i}
+        \sum_{i=1}^{k-1} \E[t_i - s_i]  = \sum_{i=1}^{k-1} \frac{n-1}{n - |B_i|} \leq \sum_{i=1}^{n-1} \frac{n - 1}{n - i}
     \]
-    Summing over all $i$'s gives the following result for cliques.
+    where the inequality uses the strict containment of $B_i$'s and the fact that $k \leq n$.
+    Since the bound holds for any fixed $k$ and $B_i$'s, we conclude that
+    the same bound holds when taking the expectation over $k$ and $B_i$'s.
+    This gives the following result for cliques.
     \begin{proposition}\label{thm:clique}
         Let $G = K_n$. Then the expected edge cover time of GRW on $K_n$ has
         \[
@@ -312,19 +338,25 @@ We end with a list of open problems.
     \end{proposition}
     This is an improvement over the $\Omega (n^2 \log(n))$ time of the SRW.
 
-    A remarkable fact recently proved by Omer Angel and Yariv Yaari states that the expected number of unvisited edges
-    in the $n$-complete graph until the first time the walk got stuck (i.e.\ up to time $s_1$) is linear in $n$, for $n$ odd \cite{AngelYaari}.
+    We mention a result of Omer Angel and Yariv Yaari who recently proved that the expected number of unvisited edges
+    in the $n$-complete graph until the first time the walk got stuck (i.e.\ up to time $s_1$) is linear in $n$,
+    for odd values of $n$ \cite{AngelYaari}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Expanders}\label{subsec:expanders}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     We apply the same techniques on $(n,d,\lambda)$-expander graphs.
+    Recall a graph $G = (V,E)$ is a $(n, d, \lambda)$-expander,
+    if it is a $d$-regular graph on $n$ vertices
+    and the second largest eigenvalue of its normalized adjacency matrix is at most $\lambda$
+    (for more see e.g. \cite{HLW06}).
+
     We are able to show that for $d = \log(n)$, the greedy edge cover time is linear in the number of edges.
     This is faster than a simple random walk, which covers the edges in $\Omega ( |E| \log |E| )$ steps.
 
     \begin{theorem}\label{thm:spectral_bound}
-        Let $G$ be any $(n, d, \lambda)$-graph.
+        Let $G$ be any $(n, d, \lambda)$-expander.
         Then $\E[T^E_G] \leq |E| + O \left( \frac{n \log(n)}{1-\lambda} \right)$.
         In particular for an expander with $d = \log(n)$ the expected greedy edge cover time is linear in the number of edges.
     \end{theorem}
@@ -347,7 +379,7 @@ We end with a list of open problems.
     \]
     Summing over all $i$'s we get
     \[
-        \sum_{i=1}^{k} \E[t_i - s_i] \leq \sum_{i=1}^k \left( \frac{O( \log(n) ) + \frac{n}{n-|B_i|}}{1 - \lambda} \right) (1 + o(1))
+        \sum_{i=1}^{k-1} \E[t_i - s_i] \leq \sum_{i=1}^{k-1} \left( \frac{O( \log(n) ) + \frac{n}{n-|B_i|}}{1 - \lambda} \right) (1 + o(1))
                 \leq O \left(\frac{n \log(n)}{1 - \lambda} \right)
     \]
     which completes the proof. \qed
@@ -509,7 +541,7 @@ We end with a list of open problems.
         cannot be asymptotically smaller than that of the SRW.
 
 \begin{proposition}
-    Let $G = (V,E)$ be a graph where all its vertices are of even degree.
+    Let $G = (V,E)$ be a vertex-transitive graph with vertices of even degree.
     Denote by $\textrm{range}_W(t)$ the expected number of edges covered by the walk $W$ in $t$ steps.
     Then $\textrm{range}_{\textrm{GRW}}(t) = \Omega (\textrm{range}_{\textrm{SRW}}(t))$.
 \end{proposition}
@@ -522,6 +554,7 @@ We end with a list of open problems.
         Otherwise, we have $\textrm{range}_{\textrm{GRW}}(t) \geq \textrm{range}_{\textrm{SRW}}(t/2)$.
         In both cases $\textrm{range}_{\textrm{GRW}}(t) = \Omega (\textrm{range}_{\textrm{SRW}}(t))$,
         since by the Markov property of SRW holds $\textrm{range}_{\textrm{SRW}}(t) \leq 2 \cdot \textrm{range}_{\textrm{SRW}}(t/2)$.
+        for any vertex-transitive graph.
 \end{proof}
 
 \begin{remark}
@@ -690,8 +723,13 @@ Uriel Feige.
 Tobias Friedrich and Thomas Sauerwald.
 \newblock The cover time of deterministic random walks.
 \newblock In {\em Proceedings of the 16th annual international conference on
-  Computing and combinatorics}, COCOON'10, pages 130--139, Berlin, Heidelberg,
-  2010. Springer-Verlag.
+Computing and combinatorics}, COCOON'10, pages 130--139, Berlin, Heidelberg,
+2010. Springer-Verlag.
+
+\bibitem[HLW06]{HLW06}
+Shlomo Hoory, Nathan Linial and Avi Wigderson.
+\newblock Expander graphs and their applications.
+\newblock Bull. Amer. Math. Soc. 43  (2006), 439-561.
 
 \bibitem[MW05]{Madras2005}
 Neal Madras and C.~Chris Wu.
