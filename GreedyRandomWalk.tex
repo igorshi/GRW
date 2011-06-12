@@ -572,7 +572,6 @@ We end with a list of open problems.
     For the second simulation, see Figures $3$ and $4$. It is aimed to compare the hitting time of the boundary of a $500\times 500$ box in $\Z^2$.
     The green part in Figures $3$ and $4$ consists of the vertices that were visited by GRW and SRW, respectively, starting at the center of a $500\times 500$ box in $\Z^2$, up to the hitting time in the boundary of the box.
 
-
     \begin{figure}[htbp]
         \center{
         \includegraphics[height=70mm, width=100mm]{GRW_Torus_500_0.8.eps}
@@ -601,7 +600,7 @@ We end with a list of open problems.
         }
     \end{figure}
 
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Remarks and Open Questions}\label{sec:remarks}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -609,12 +608,15 @@ We end with a list of open problems.
     One may consider a variant of the greedy random walk defined as follows.
     At each step from a vertex $v$, the random walk picks uniformly at random a non visited neighbor
     and moves to it. If all neighbors were visited, it picks one of them uniformly at random and moves to it.
-
     This walk may be beneficial to lower the expected \emph{vertex} cover time, for finite graphs of high degree.
     For example, it is obvious that in the clique $K_n$, the vertex cover time is $n$.
-
-    For some graphs the expected edge cover time of this walk coincides with the one of GRW.
-    For example, a similar treatment as the one of Section \ref{subsec:binary_tree}, yields that this is indeed the case for $d$-trees.
+    
+    However if we change the rule a little, then for any graph $G$ on $n$ vertices
+    the walk will cover the vertices in time at most $2n$.
+    The rule will cause the walk to perform DFS.
+    \fbox{ \color{red}    \begin{tabular}{l}
+        explain how this can be turned into a DFS walk
+    \end{tabular}    }
 
     \bigskip
 
