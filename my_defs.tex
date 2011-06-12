@@ -1,0 +1,129 @@
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[all]{xy}
+\usepackage[nice]{nicefrac}
+\usepackage{color}
+\usepackage{graphicx}
+
+\hbadness=10000
+\vbadness=10000
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+
+\newcommand{\inote}[1]
+    {
+    \fbox{ \color{red}
+    \begin{tabular}{l}
+        \fbox{inote:}
+         #1
+    \end{tabular}
+    }}
+
+\newcommand{\symdiff}{\bigtriangleup}
+\newcommand{\set}[1]{{\left\{#1 \right\}}}
+\newcommand{\zo}{ \left\{0,1\right\} }
+\newcommand{\pmone}{ \left\{ \pm 1\right\} }
+\newcommand{\0}{{\bf 0}}
+\newcommand{\RM}{\mathcal{RM}}
+\newcommand{\D}{\Delta}
+\newcommand{\A}{{\mathcal{A}}}
+\newcommand{\B}{{\mathcal{B}}}
+\newcommand{\T}{{\mathcal{T}}}
+\newcommand{\F}{{\mathcal{F}}}
+\newcommand{\G}{{\mathcal{G}}}
+\newcommand{\U}{{\mathcal{U}}}
+\newcommand{\RR}{{\mathcal{R}}}
+\newcommand{\FF}{{\mathbb F}}
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\Q}{{\mathbb Q}}
+\renewcommand{\S}{{\mathbb S}}
+\newcommand{\eqdef}{{\stackrel{\rm def}{=}}}
+\newcommand{\ip}[1]{{\left\langle #1 \right\rangle}}
+\renewcommand{\span}{{\rm span}}
+\newcommand{\poly}{{\rm poly}}
+\newcommand{\ftilde}{\widetilde{f}}
+\newcommand{\gtilde}{\widetilde{g}}
+\newcommand{\fhat}{\hat{f}}
+\newcommand{\hhat}{\hat{h}}
+\newcommand{\ghat}{\hat{g}}
+\newcommand{\otn}{{\otimes n}}
+\newcommand{\tnpar}[2]{{{\otimes}^{#1}{#2}}}
+\newcommand{\tn}{{\overset{t}{\otimes}n}}
+\newcommand{\Tn}{T^{\otimes n}}
+\newcommand{\Sn}{S^{\otimes n}}
+\newcommand{\Tntilde}{\tilde T^{\otimes n}}
+\renewcommand{\a}{\alpha}
+\renewcommand{\b}{\beta}
+\renewcommand{\d}{\delta}
+\renewcommand{\l}{\lambda}
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand{\four}{\{0,1,2,3\}}
+\newcommand{\ol}{\overline}
+\newcommand{\chop}{\mathrm{chop}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\seq}{\subseteq}
+\newcommand{\suq}{\supseteq}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\E}{{\mathbb E}}
+\newcommand{\Var}{{\rm Var}}
+\newcommand{\qed}{\rule{7pt}{7pt}}
+\def\half{\frac{1}{2}}
+\def\nicehalf{\nicefrac{1}{2}}
+\def\quarter{\frac{1}{4}}
+\def\nicequarter{\nicefrac{1}{4}}
+\newcommand\col[2]{\textsc{Approx}\-\textsc{Coloring}({#1},{#2})}
+\newcommand{\One}{{\bf 1}}
+\newcommand{\Inf}[1]{{\rm Inf}_{#1}}
+\newcommand{\XInf}[1]{{\rm XInf}_{#1}}
+\renewcommand{\bar}{\overline}
+\newcommand{\supp}{{\sf supp}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{goal}[theorem]{Goal}
+\newtheorem{question}[theorem]{Question}
+
+
+\newenvironment{quotetheorem}[1]{\par\noindent{\bf #1}\hspace*{1em}}{\bigskip\par}
+
+\newenvironment{proof}{\noindent{\bf Proof}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-sketch}{\noindent{\bf Sketch of Proof}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-idea}{\noindent{\bf Proof Idea}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-of-lemma}[1]{\noindent{\bf Proof of Lemma #1}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-of-thm}[1]{\noindent{\bf Proof of Theorem #1}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-attempt}{\noindent{\bf Proof Attempt}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proofof}[1]{\noindent{\bf Proof of #1:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{remark}{\noindent{\bf Remark}\hspace*{1em}}{\bigskip}
+\newenvironment{remarks}{\noindent{\bf Remarks}\hspace*{1em}}{\bigskip}
+
+\newenvironment{reduction}{\noindent{\bf \large Reduction}\hspace*{1em}}{\bigskip}
+\newenvironment{completeness}{\noindent{\bf Completeness}\hspace*{1em}}{\qed\\}
+\newenvironment{soundness}{\noindent{\bf Soundness}\hspace*{1em}}{\qed\\}
+
+\newcommand{\itemlist}[1]{\begin{itemize}#1\end{itemize}}
+\newcommand{\enumlist}[1]{\begin{enumerate}#1\end{enumerate}}
+\newcommand{\desclist}[1]{\begin{description}#1\end{description}}
+\newcommand{\eqnar}[1]{\begin{eqnarray*}#1\end{eqnarray*}}
+
+%\newcommand{\question}[1]{\subsubsection*{Question #1}}
+%\newcommand{\solution}{\subsubsection*{Solution}}
